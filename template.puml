@@ -1,0 +1,50 @@
+
+@startuml Template for Event Storming PlantUML Diagram
+
+title Template for Event Storming PlantUML Diagram
+
+'!include https://raw.githubusercontent.com/tmorin/plantuml-libs/v13.0.0/distribution/eventstorming/bootstrap.puml
+!include settings.puml
+
+' Elements <1>
+    ' Actor
+        ' Person("") - A person who executes a command through a view.
+        ' System("") - A third-party service provider such as a payment gateway or shipping company.
+        ' Timer("") - A timer represents a significant moment or period.
+    ' Aggregate
+        ' Aggregate("") - An aggregate expresses domain aspects that can be treated as a single unit.
+        ' Service("") - A service implements domain operations which cannot belong to an aggregate.
+    ' Documentation
+        ' Comment("") - A comment is used to provide additional information.
+    ' Message
+        ' Command("") - A command is an intent to mutate the state of the system.
+        ' DomainEvent("") - A domain event notifies something significant happened about an aggregate.
+        ' Event("") - An event notifies something happened.
+        ' FacadeCommand("") - A facade command is a public command masking the underlying complexity.
+        ' IntegrationEvent("") - An integration event notifies to other systems something happened.
+        ' Query("") - A query is a wish to get a point of view of the state of the system.
+        ' Result("") - A result provides a feedback about an already processed message.
+    ' Policy
+        ' Policy("") - A policy captures the reactive logic of a process.
+        ' Process("") - A process is a short-lived business transaction.
+        ' Saga("") - A saga is a long-lived business transaction.
+    ' View
+        ' ReadModel("") - A read model provides the information that needs to be available to take a given decision.
+        ' UserInterface ("") - A user interface helps users to interact with the system.
+
+' declarations <2>
+Person("EndUser")
+UserInterface("SubmitNoteForm")
+FacadeCommand("SubmitNewNote")
+Command("CreateNote")
+Aggregate("Note")
+DomainEvent("NoteCreated")
+EndUser --> SubmitNoteForm : uses
+
+' associations <3>
+SubmitNoteForm --> SubmitNewNote : executes
+SubmitNewNote --> CreateNote : executes
+CreateNote -> Note : creates
+CreateNote --> NoteCreated : produces
+NoteCreated -u-> Note : applied to
+@enduml
