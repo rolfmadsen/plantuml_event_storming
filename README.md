@@ -1,4 +1,4 @@
-# Modelling Event Storming in PlantUML
+# Event Storming & Event Modelling in PlantUML
 
 The purpose is to gain experience with Event Storming and Event Modelling in PlantUML.
 
